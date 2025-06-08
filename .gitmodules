@@ -1,4 +1,3 @@
 [submodule "bkfire"]
 	path = bkfire
-	url = git@github-bkfire85:bkfire85/bkfire.git
-	# url = git@github.com:bkfire85/bkfire.git
+	url = git@github.com:bkfire85/bkfire.git
