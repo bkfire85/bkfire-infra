@@ -1,0 +1,8 @@
+bkfire/node_modules
+.env*
+*.pem
+node_modules
+npm-debug.log
+.git
+.gitignore
+drive-uploader-key.json   # secret 으로 마운트할 경우

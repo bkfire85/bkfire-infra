@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: ./bkfire
+      dockerfile: Dockerfile
+    env_file:
+      - ./bkfire/.env
+      - ./bkfire/.env.${NODE_ENV:-development}
+    volumes:
+      - ./bkfire:/app       # (개발 시) 코드 변경 즉시 반영
+    ports:
+      - "3000:3000"
+    # app은 nginx에 의존하지 않으므로 depends_on 제거
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app                 # nginx는 app이 올라온 뒤에 시작
