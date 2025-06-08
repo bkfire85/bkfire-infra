@@ -1,1 +1,13 @@
+# 기존
+bkfire/node_modules
+.env*
+*.pem
+node_modules
+npm-debug.log
+.git
+.gitignore
+
+# 새로 추가
 drive-uploader-key.json
+
+bkfire-aws.pem
