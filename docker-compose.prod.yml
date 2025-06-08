@@ -1,16 +1,13 @@
-# docker-compose.prod.yml
 services:
   next-app:
+    image: cozyswift/bkfire:latest
     container_name: next-app
-    build:
-      context: ./bkfire
-      dockerfile: Dockerfile
-      args:
-        BASE_URL: https://YOUR_DOMAIN_OR_IP
     env_file:
       - ./bkfire/.env.production
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
+    networks:
+      - bkfire-network
 
   nginx:
     image: nginx:alpine
@@ -19,5 +16,39 @@ services:
       - next-app
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/cert:/etc/nginx/cert:ro  # SSL 인증서 경로 (추후 Let's Encrypt 사용 시 변경)
     ports:
       - "80:80"
+      - "443:443"
+    networks:
+      - bkfire-network
+
+networks:
+  bkfire-network:
+    driver: bridge
+
+    
+# # docker-compose.prod.yml
+# services:
+#   next-app:
+#     image: cozyswift/bkfire:latest
+#     container_name: next-app
+#     build:
+#       context: ./bkfire
+#       dockerfile: Dockerfile
+#       args:
+#         BASE_URL: https://bkfire.next
+#     env_file:
+#       - ./bkfire/.env.production
+#     ports:
+#       - "3000:3000"
+
+#   nginx:
+#     image: nginx:alpine
+#     container_name: nginx-prod
+#     depends_on:
+#       - next-app
+#     volumes:
+#       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+#     ports:
+#       - "80:80"
