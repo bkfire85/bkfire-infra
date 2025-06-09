@@ -6,7 +6,8 @@ node_modules
 npm-debug.log
 .git
 .gitignore
-
+# 인증서 폴더 무시
+nginx/cert/
 # 새로 추가
 drive-uploader-key.json
 bkfire-aws.pem
